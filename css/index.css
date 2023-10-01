@@ -1,0 +1,26 @@
+@font-face {
+    font-family: "Lexend100";
+    src: url("../fonts/Lexend/Lexend-Thin.ttf");
+}
+@font-face {
+    font-family: "Lexend200";
+    src: url("../fonts/Lexend/Lexend-ExtraLight.ttf");
+}
+@font-face {
+    font-family: "Lexend300";
+    src: url("../fonts/Lexend/Lexend-Light.ttf");
+}
+@font-face {
+    font-family: "Kavoon";
+    src: url("../fonts/Kavoon/Kavoon-Regular.ttf");
+}
+
+body {
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eggcellent</title>
-    <link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-    <script src="js/index.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Eggcellent</title>
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/mainPage.css">
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <header id="header">
+                <h1>Eggcellent</h1>
+                <div class="eggLogo"></div>
+            </header>
+                
+            <main id="main">
+                <div id="eggTimer">
+                    <div id="loadingBarContainer">
+                        <div id="loadingBar"></div>
+                    </div>
+                    <div class="eggTimerIcon">
+                        <div id="timer">00:00</div>
+                    </div>
+                </div>
+
+                <button id="startTimer">
+                    <div>START</div>
+                    <div class="startIcon"></div>
+                </button>
+
+                <div id="customizeEgg">
+                    <div class="arrowIconUp"></div>
+                    Customize
+                </div>
+            </main>
+        </div>
+        
+
+        <script src="js/index.js"></script>
+    </body>
 </html>
