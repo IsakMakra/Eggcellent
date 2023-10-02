@@ -25,8 +25,6 @@ body {
     align-items: center;
 }
 
-
-/* INFO */
 #overlay {
     height: 100vh;
     width: 100vw;
@@ -35,21 +33,65 @@ body {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
-    display: grid;
+}
+
+/* INFO */
+#info_button {
+    position: absolute;
+
+    right: 5vw;
+    top: 2vh;
+
+    height: 30px;
+    width: 30px;
+
+    background-image: url("../media/info.png");
+    background-position: center;
+    background-size: contain;
 }
 
 #info_background {
     background-color: white;
-    padding: 50px;
-    border-radius: 50px;
-    height: 210px;
-    width: 300px;
-}
+    padding: 12vw;
+    border-radius: 10px;
+    height: 60vh;
+    width: 85vw;
+    box-sizing: border-box;
 
-#next_message_button {
-    text-decoration: underline;
+    display: grid;
+    gap: 2vh;
+    grid-template-rows: 1fr 5fr 1fr;
 }
 
 #close_button {
-    text-decoration: underline;
+    height: 30px;
+    width: 30px;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+
+    background-image: url("../media/close.png");
+    background-position: center;
+    background-size: contain;
+}
+
+#info_text {
+    grid-row: 2;
+    text-align: center;
+    align-self: center;
+
+    margin: 0;
+    font-size: 24px;
+}
+
+#next_message_button {
+    background-image: url(../media/next.png);
+    background-position: center;
+    background-size: contain;
+
+    justify-self: end;
+    align-self: center;
+    grid-row: 3;
+    height: 30px;
+    width: 30px;
 }
