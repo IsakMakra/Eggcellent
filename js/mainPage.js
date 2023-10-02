@@ -26,7 +26,9 @@ function renderCustomizeModal(){
                 <div>Are they cold or warm?</div>
                 <div class="options">
                     <div id="cold"></div>
-                    <div id="warm"></div>
+                    <div id="warmContainer">
+                        <div id="warm"></div>
+                    </div>
                 </div>
             </div>
 
@@ -44,16 +46,16 @@ function renderCustomizeModal(){
                 <div>Boil-type</div>
                 <div class="options">
                     <div id="softBoiled">
-                        <div id="soft"></div>
                         Soft
+                        <div id="soft"></div>
                     </div>
                     <div id="mediumBoiled">
-                        <div id="medium"></div>
                         Medium
+                        <div id="medium"></div>
                     </div>
                     <div id="hardBoiled">
-                        <div id="hard"></div>
                         Hard
+                        <div id="hard"></div>
                     </div>        
                 </div>
             </div>

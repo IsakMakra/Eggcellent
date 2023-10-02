@@ -152,4 +152,40 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 10px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 10px;
+}
+
+#warmContainer {
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+#warm {
+    background-image: url("../media/sun.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 44px;
+    width: 44px;
+}
+#cold {
+    background-image: url("../media/snow.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#boilType > .options div {
+    flex-basis: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#averageTime {
+    text-align: center;
 }
