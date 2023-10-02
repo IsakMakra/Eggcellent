@@ -124,3 +124,32 @@ main {
     height: 22px;
     width: 22px;
 }
+
+#customizePage {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+    height: 75vh;
+    width: 85vw;
+
+    background-color: white;
+    border-radius: 10px;
+    font-family: "Lexend300";
+    font-size: 24px;
+    padding: 15px;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.options > div {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
