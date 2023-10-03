@@ -104,6 +104,7 @@ main {
     width: 20px;
 
     position: relative;
+    top: 1.4px;
 }
 .stopIcon {
     background-image: url("../media/stop.png");
@@ -114,6 +115,7 @@ main {
     width: 20px;
 
     position: relative;
+    top: 1.4px;
 }
 
 #customizeEgg {
