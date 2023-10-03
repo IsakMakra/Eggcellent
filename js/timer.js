@@ -7,19 +7,38 @@ function start_timer() {
     let timer_button = document.getElementById("startTimer");
     timer_button.removeEventListener("click", start_timer);
 
+    const timerButtonIcon = timer_button.querySelector(".startIcon");
+    timerButtonIcon.classList.add("stopIcon");
+    timerButtonIcon.classList.remove("startIcon");
+
     let timer_text = document.getElementById("startText");
     timer_text.textContent = "STOP";  
     let loading_bar = document.getElementById("loadingBar");
 
-    timer_button.addEventListener("click", () => {
+    const customizeEggButton = document.querySelector("#customizeEgg");
+    customizeEggButton.style.opacity = 0.5;
+    customizeEggButton.removeEventListener("click", renderCustomizeModal);
+
+    timer_button.addEventListener("click", stop_timer);
+
+    function stop_timer(){
         clearInterval(count_down);
         timer_text.textContent = "START";
         time.innerText = "00:00";
         loading_bar.style.height = "0%"
-    })
 
+        timerButtonIcon.classList.remove("stopIcon");
+        timerButtonIcon.classList.add("startIcon");
 
-    let start_time = timer.innerText.split(":");
+        customizeEggButton.style.opacity = 1;
+        customizeEggButton.addEventListener("click", renderCustomizeModal);
+
+        toggleStartTimerButton();
+        timer_button.removeEventListener("click", stop_timer);
+        timer_button.addEventListener("click", start_timer);
+    }
+
+    let start_time = time.innerText.split(":");
     let minutes = parseInt(start_time[0]);
     let seconds = parseInt(start_time[1]);
 

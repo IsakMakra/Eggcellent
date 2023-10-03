@@ -5,6 +5,8 @@ function initiateMainPage(){
     document.querySelector("#customizeEgg").addEventListener("click", renderCustomizeModal);
 
     document.getElementById("info_button").addEventListener("click", display_info);
+
+    toggleStartTimerButton();
 }
 
 function renderCustomizeModal(){
@@ -173,18 +175,24 @@ function calcAndPrintTime(){
 
     customizeTimer.textContent = timeStr;
     eggTimer.textContent = timeStr;
+
+    const startButton = document.querySelector("#startTimer");
+    startButton.removeAttribute("disabled");
+    startButton.style.opacity = 1;
 }
 
 function display_info () {
-    document.querySelector("#wrapper").innerHTML += `
-        <div id="overlay"> 
+
+    const overlayDiv = document.createElement("div");
+    overlayDiv.id = "overlay";
+    overlayDiv.innerHTML = `
             <div id="info_background">
                 <div id="close_button"></div>
                 <p id="info_text"></p>
                 <div id="next_message_button"></div>
             </div>
-        </div>
-    `;
+    `
+    document.querySelector("#wrapper").appendChild(overlayDiv);
 
     let nr_of_messages_displayed = 0;
 
@@ -214,5 +222,19 @@ function display_info () {
         if(nr_of_messages_displayed === messages.length - 1) {
             next_message_button.remove();
         }
+    }
+
+}
+
+function toggleStartTimerButton(){
+
+    const startButton = document.querySelector("#startTimer")
+
+    if(!startButton.hasAttribute("disabled")){
+        startButton.setAttribute("disabled", "true");
+        startButton.style.opacity = 0.5;
+    }else{
+        startButton.removeAttribute("disabled");
+        startButton.style.opacity = 1;
     }
 }
