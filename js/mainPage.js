@@ -158,6 +158,8 @@ function calcAndPrintTime(){
 
     const totalSeconds = eggAmountTime + eggTempTime + eggSizeTime + eggBoilTypeTime;
 
+    console.log(totalSeconds);
+
     let totalMinutes = (totalSeconds - totalSeconds % 60) / 60;
     let restSeconds = totalSeconds % 60;
 
@@ -166,8 +168,8 @@ function calcAndPrintTime(){
     const customizeTimer = document.querySelector("#averageTime");
     const eggTimer = document.querySelector("#timer");
 
-    totalMinutes > 10 ? timeStr = `${totalMinutes}:` : timeStr = `0${totalMinutes}:`
-    restSeconds > 10 ? timeStr += `${restSeconds}` : timeStr += `0${restSeconds}`
+    totalMinutes > 9 ? timeStr = `${totalMinutes}:` : timeStr = `0${totalMinutes}:`
+    restSeconds > 9 ? timeStr += `${restSeconds}` : timeStr += `0${restSeconds}`
 
     customizeTimer.textContent = timeStr;
     eggTimer.textContent = timeStr;
