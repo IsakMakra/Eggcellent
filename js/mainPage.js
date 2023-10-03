@@ -3,70 +3,174 @@
 function initiateMainPage(){
     // document.querySelector("#startTimer").addEventListener("click", startTimer);
     document.querySelector("#customizeEgg").addEventListener("click", renderCustomizeModal);
+
     document.getElementById("info_button").addEventListener("click", display_info);
 }
 
 function renderCustomizeModal(){
 
     const customizeModal = document.createElement("div");
+
+    if(window.localStorage.getItem("customizeEggState")){
+        customizeModal.innerHTML = window.localStorage.getItem("customizeEggState");
+    }else{
+        customizeModal.innerHTML = `
+            <div id="customizePage">
+
+                <div id="eggsCount">
+                    <div>How many eggs?</div>
+                    <div class="options eggAmount">
+                        <div id="countMinus">-</div>
+                        <div id="eggCounter">1</div>
+                        <div id="countPlus">+</div>
+                    </div>
+                </div>
+
+                <div id="coldOrWarm">
+                    <div>Are they cold or warm?</div>
+                    <div class="options">
+                        <div id="cold" class="selected"></div>
+                        <div id="warm">
+                            <div id="warmImage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="eggSize">
+                    <div>Egg size</div>
+                    <div class="options">
+                        <div id="small" class="selected">S</div>
+                        <div id="medium">M</div>
+                        <div id="large">L</div>
+                        <div id="extralarge">XL</div>
+                    </div>
+                </div>
+
+                <div id="boilType">
+                    <div>Boil-type</div>
+                    <div class="options">
+                        <div id="soft" class="selected">
+                            Soft
+                            <div id="softImg"></div>
+                        </div>
+                        <div id="medium"">
+                            Medium
+                            <div id="mediumImg"></div>
+                        </div>
+                        <div id="hard">
+                            Hard
+                            <div id="hardImg"></div>
+                        </div>        
+                    </div>
+                </div>
+
+                <div id="averageTime"></div>
+                <div id="closeCustomizeContainer">
+                    <button id="closeCustomize">Close</button>
+                </div>
+            </div>
+        `
+    }
+
     customizeModal.setAttribute("id", "overlay");
-    customizeModal.innerHTML = `
-        <div id="customizePage">
-
-            <div id="eggsCount">
-                <div>How many eggs?</div>
-                <div class="options">
-                    <div id="countMinus">-</div>
-                    <div id="eggCounter">4</div>
-                    <div id="countPlus">+</div>
-                </div>
-            </div>
-
-            <div id="coldOrWarm">
-                <div>Are they cold or warm?</div>
-                <div class="options">
-                    <div id="cold"></div>
-                    <div id="warmContainer">
-                        <div id="warm"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="eggSize">
-                <div>Egg size</div>
-                <div class="options">
-                    <div id="smallEgg">S</div>
-                    <div id="mediumEgg">M</div>
-                    <div id="largeEgg">L</div>
-                    <div id="extraLargeEgg">XL</div>
-                </div>
-            </div>
-
-            <div id="boilType">
-                <div>Boil-type</div>
-                <div class="options">
-                    <div id="softBoiled">
-                        Soft
-                        <div id="soft"></div>
-                    </div>
-                    <div id="mediumBoiled">
-                        Medium
-                        <div id="medium"></div>
-                    </div>
-                    <div id="hardBoiled">
-                        Hard
-                        <div id="hard"></div>
-                    </div>        
-                </div>
-            </div>
-
-            <div id="averageTime">04:37</div>
-            <button id="closeCustomize">Close</button>
-        </div>
-    `
-    
     document.querySelector("#wrapper").appendChild(customizeModal);
-    
+
+    const customizeEggOptions = document.querySelectorAll(".options");
+    customizeEggOptions.forEach(prepareOptions);
+
+    calcAndPrintTime();
+
+    customizeModal.querySelector("#closeCustomize").addEventListener("click", event => {
+        window.localStorage.setItem("customizeEggState", customizeModal.innerHTML);
+        customizeModal.remove()
+    });
+
+}
+
+function prepareOptions(eggOptionList){
+
+    if(!eggOptionList.classList.contains("eggAmount")){
+        const eggOptions = eggOptionList.querySelectorAll(":scope > div");
+        console.log(eggOptionList);
+        
+        eggOptions.forEach(eggOption => {
+            eggOption.classList.add("option");
+
+            eggOption.addEventListener("click", event => {
+                eggOptions.forEach(eggOption2 => eggOption2.classList.remove("selected"))
+                eggOption.classList.add("selected");
+                calcAndPrintTime();
+            })
+        })
+        return;
+    }
+
+    const eggCountDiv = eggOptionList.querySelector("#eggCounter");
+    const countMinus = eggOptionList.querySelector("#countMinus");
+    const countPlus = eggOptionList.querySelector("#countPlus");
+
+    countMinus.addEventListener("click", event => {
+        let eggCount = parseInt(eggCountDiv.textContent);
+        if(eggCount > 1){
+            eggCountDiv.textContent = --eggCount;
+            calcAndPrintTime();
+        }
+    })
+    countPlus.addEventListener("click", event => {
+        let eggCount = parseInt(eggCountDiv.textContent);
+        if(eggCount < 10){
+            eggCountDiv.textContent = ++eggCount;
+            calcAndPrintTime();
+        }
+    })
+
+}
+
+function calcAndPrintTime(){
+
+    const eggOptions = {
+        temperature: {
+            cold: 15,
+            warm: 30
+        },
+        size: {
+            small: 40,
+            medium: 80,
+            large: 120,
+            extralarge: 160
+        },
+        boiltype: {
+            soft: 15,
+            medium: 30,
+            hard: 45
+        }
+    }
+
+    const eggAmount = parseInt(document.querySelector("#eggCounter").textContent);
+    const eggTemperature = document.querySelector("#coldOrWarm .selected").id;
+    const eggSize = document.querySelector("#eggSize .selected").id;
+    const eggBoilType = document.querySelector("#boilType .selected").id;
+
+    const eggAmountTime = 20 * eggAmount;
+    const eggTempTime = eggOptions.temperature[eggTemperature];
+    const eggSizeTime = eggOptions.size[eggSize];
+    const eggBoilTypeTime = eggOptions.boiltype[eggBoilType];
+
+    const totalSeconds = eggAmountTime + eggTempTime + eggSizeTime + eggBoilTypeTime;
+
+    let totalMinutes = (totalSeconds - totalSeconds % 60) / 60;
+    let restSeconds = totalSeconds % 60;
+
+    let timeStr = "";
+
+    const customizeTimer = document.querySelector("#averageTime");
+    const eggTimer = document.querySelector("#timer");
+
+    totalMinutes > 10 ? timeStr = `${totalMinutes}:` : timeStr = `0${totalMinutes}:`
+    restSeconds > 10 ? timeStr += `${restSeconds}` : timeStr += `0${restSeconds}`
+
+    customizeTimer.textContent = timeStr;
+    eggTimer.textContent = timeStr;
 }
 
 function display_info () {

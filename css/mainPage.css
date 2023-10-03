@@ -127,19 +127,29 @@ main {
     width: 22px;
 }
 
+/* --- Start of egg customization page --- */
+
 #customizePage {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
 
-    height: 75vh;
+    height: 80vh;
+    max-height: 700px;
     width: 85vw;
+    max-width: 450px;
 
     background-color: white;
     border-radius: 10px;
     font-family: "Lexend300";
-    font-size: 24px;
+    font-size: 5.3vw;
     padding: 15px;
+}
+
+@media (min-width: 450px){
+    #customizePage, #closeCustomizeContainer #closeCustomize {
+        font-size: 24px;
+    }
 }
 
 .options {
@@ -155,8 +165,7 @@ main {
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-    background-color: rgb(245, 245, 245);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 #warmContainer {
@@ -164,7 +173,7 @@ main {
     box-sizing: border-box;
 }
 
-#warm {
+#warmImage {
     background-image: url("../media/sun.png");
     background-size: contain;
     background-position: center;
@@ -172,6 +181,7 @@ main {
     height: 44px;
     width: 44px;
 }
+
 #cold {
     background-image: url("../media/snow.png");
     background-size: cover;
@@ -179,7 +189,7 @@ main {
     background-repeat: no-repeat;
 }
 
-#boilType > .options div {
+#boilType > .options > div {
     flex-basis: 0;
     flex-grow: 1;
     display: flex;
@@ -188,6 +198,38 @@ main {
     align-items: center;
 }
 
+#softImg, #mediumImg, #hardImg {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 60px;
+}
+
+#softImg { background-image: url("../media/soft.png"); }
+#mediumImg { background-image: url("../media/medium.png"); }
+#hardImg { background-image: url("../media/hard.png"); }
+
 #averageTime {
     text-align: center;
+    font-size: 30px;
+}
+
+#closeCustomizeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#closeCustomize {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 50px;
+    width: 150px;
+    font-size: 5.3vw;
+}
+
+.selected {
+    background-color: #FFD601;
 }
