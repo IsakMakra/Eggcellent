@@ -275,7 +275,7 @@ main {
 
 #info_background {
     background-color: white;
-    padding: 12vw;
+    padding: 6vw;
     border-radius: 10px;
     height: 60vh;
     width: 85vw;
@@ -291,7 +291,7 @@ main {
     width: 30px;
     grid-row: 1;
     justify-self: end;
-    align-self: center;
+    align-self: flex-start;
 
     background-image: url("../media/close.png");
     background-position: center;
@@ -313,7 +313,7 @@ main {
     background-size: contain;
 
     justify-self: end;
-    align-self: center;
+    align-self: flex-end;
     grid-row: 3;
     height: 30px;
     width: 30px;
