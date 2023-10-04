@@ -32,7 +32,9 @@ function renderCustomizeModal(){
                 <div id="coldOrWarm">
                     <div>Are they cold or warm?</div>
                     <div class="options">
-                        <div id="cold" class="selected"></div>
+                        <div id="cold" class="selected">
+                            <div id="coldImage"></div>
+                        </div>
                         <div id="warm">
                             <div id="warmImage"></div>
                         </div>

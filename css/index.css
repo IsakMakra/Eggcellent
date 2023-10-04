@@ -11,6 +11,10 @@
     src: url("../fonts/Lexend/Lexend-Light.ttf");
 }
 @font-face {
+    font-family: "LexendSemibold";
+    src: url("../fonts/Lexend/Lexend-SemiBold.ttf");
+}
+@font-face {
     font-family: "Kavoon";
     src: url("../fonts/Kavoon/Kavoon-Regular.ttf");
 }
