@@ -120,7 +120,7 @@ function prepareOptions(eggOptionList){
     })
     countPlus.addEventListener("click", event => {
         let eggCount = parseInt(eggCountDiv.textContent);
-        if(eggCount < 10){
+        if(eggCount < 5){
             eggCountDiv.textContent = ++eggCount;
             calcAndPrintTime();
         }
