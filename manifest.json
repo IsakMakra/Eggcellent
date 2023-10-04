@@ -2,7 +2,8 @@
   "name": "Eggcellent",
   "start_url": ".",
   "display": "standalone",
-  "icons": [
+  "icons": 
+  [
     {
       "src": "media/eggIcon.png",
       "sizes": "48x48",

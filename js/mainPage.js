@@ -183,9 +183,11 @@ function display_info () {
     overlayDiv.id = "overlay";
     overlayDiv.innerHTML = `
             <div id="info_background">
-                <div class="button" id="close_button"></div>
+                <div class="round_button" id="close_button"></div>
                 <p id="info_text"></p>
-                <div class="button" id="next_message_button"></div>
+                <div id="arrow_button_container">
+                    <div class="round_button" id="next_message_button"></div>
+                </div>
             </div>
     `
     document.querySelector("#wrapper").appendChild(overlayDiv);
@@ -210,16 +212,48 @@ function display_info () {
         document.querySelector("#info_button").addEventListener("click", display_info);
     })
 
+    let next_exist = true;
+    let previous_exist = false;
+
     function display_next_message() {
         nr_of_messages_displayed += 1;
 
         info_text.textContent = messages[nr_of_messages_displayed];
+    
+        if(nr_of_messages_displayed > 0 && !previous_exist) {
+            previous_exist = true;
+            
+            let previous_message_button = document.createElement("div");
+            previous_message_button.classList.add("round_button");
+            previous_message_button.id = "previous_message_button";
+            document.getElementById("arrow_button_container").prepend(previous_message_button)
+
+            previous_message_button.addEventListener("click", () => {
+                if(!next_exist) {
+                    next_message_button = document.createElement("div");
+                    next_message_button.id = "next_message_button";
+                    next_message_button.classList.add("round_button");
+                    document.getElementById("arrow_button_container").append(next_message_button);
+                    next_message_button.addEventListener("click", display_next_message);
+                }
+                
+                nr_of_messages_displayed -= 1;
+                next_exist = true;
+
+                document.getElementById("info_text").textContent = messages[nr_of_messages_displayed];
+    
+                if(nr_of_messages_displayed === 0) {
+                    previous_message_button.remove();
+                    previous_exist = false;
+                }
+            })
+        }
 
         if(nr_of_messages_displayed === messages.length - 1) {
             next_message_button.remove();
+            next_exist = false;
         }
     }
-
 }
 
 function toggleStartTimerButton(){

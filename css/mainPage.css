@@ -307,18 +307,35 @@ main {
     font-size: 24px;
 }
 
+#arrow_button_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
 #next_message_button {
     background-image: url(../media/next.png);
     background-position: center;
     background-size: contain;
 
+    grid-column: 2;
     justify-self: end;
     align-self: flex-end;
-    grid-row: 3;
     height: 30px;
     width: 30px;
 }
 
+#previous_message_button {
+    background-image: url(../media/next.png);
+    background-position: center;
+    background-size: contain;
+
+    transform: rotateY(180deg);
+    grid-column: 1;
+    justify-self: start;
+    align-self: flex-end;
+    height: 30px;
+    width: 30px;
+}
 /* Stop */
 
 #stop_background {
@@ -361,11 +378,7 @@ main {
     border-radius: 5px;
 }
 
-#info_background > .button:active {
-    border-radius: 50%;
-}
-
-#info_button:active {
+.round_button:active {
     background-color: rgb(220, 220, 220);
     border-radius: 50%;
 }
