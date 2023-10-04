@@ -85,7 +85,7 @@ main {
     height: 55px;
 
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: #FFD601;
     font-size: 24px;
 
@@ -236,7 +236,7 @@ main {
 #closeCustomize {
     background-color: white;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 5px;
     height: 50px;
     width: 150px;
     font-size: 5.3vw;
@@ -244,4 +244,138 @@ main {
 
 .selected {
     background-color: #FFD601;
+}
+
+#overlay {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+
+    font-family: "Lexend300";
+}
+
+/* INFO */
+#info_button {
+    position: absolute;
+
+    right: 5vw;
+    top: 2vh;
+
+    height: 30px;
+    width: 30px;
+
+    background-image: url("../media/info.png");
+    background-position: center;
+    background-size: contain;
+}
+
+#info_background {
+    background-color: white;
+    padding: 12vw;
+    border-radius: 10px;
+    height: 60vh;
+    width: 85vw;
+    box-sizing: border-box;
+
+    display: grid;
+    gap: 2vh;
+    grid-template-rows: 1fr 5fr 1fr;
+}
+
+#close_button {
+    height: 30px;
+    width: 30px;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+
+    background-image: url("../media/close.png");
+    background-position: center;
+    background-size: contain;
+}
+
+#info_text {
+    grid-row: 2;
+    text-align: center;
+    align-self: center;
+
+    margin: 0;
+    font-size: 24px;
+}
+
+#next_message_button {
+    background-image: url(../media/next.png);
+    background-position: center;
+    background-size: contain;
+
+    justify-self: end;
+    align-self: center;
+    grid-row: 3;
+    height: 30px;
+    width: 30px;
+}
+
+/* Stop */
+
+#stop_background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    flex-direction: column;
+
+    background-color: white;
+    padding: 12vw;
+    border-radius: 10px;
+    height: 30vh;
+    width: 85vw;
+    box-sizing: border-box;
+    gap: 2vh;
+}
+
+#choice_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    grid-row: 3;
+    gap: 2vw;
+}
+
+.choice_button {
+    border: solid black 1px;
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.button:active {
+    background-color: rgb(220, 220, 220);
+    border-radius: 5px;
+}
+
+#info_background > .button:active {
+    border-radius: 50%;
+}
+
+#info_button:active {
+    background-color: rgb(220, 220, 220);
+    border-radius: 50%;
+}
+
+#closeCustomize:active {
+    background-color: rgb(220, 220, 220);
+    border-radius: 5px;
+}
+
+#startTimer:active {
+    background-color: #E0BB02;
+    border-radius: 5px;
 }

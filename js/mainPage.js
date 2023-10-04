@@ -10,7 +10,8 @@ function initiateMainPage(){
 }
 
 function renderCustomizeModal(){
-
+    
+    document.getElementById("loadingBar").style.height = "0%"
     const customizeModal = document.createElement("div");
 
     if(window.localStorage.getItem("customizeEggState")){
@@ -22,9 +23,9 @@ function renderCustomizeModal(){
                 <div id="eggsCount">
                     <div>How many eggs?</div>
                     <div class="options eggAmount">
-                        <div id="countMinus">-</div>
+                        <div class="button" id="countMinus">-</div>
                         <div id="eggCounter">1</div>
-                        <div id="countPlus">+</div>
+                        <div class="button" id="countPlus">+</div>
                     </div>
                 </div>
 
@@ -68,7 +69,7 @@ function renderCustomizeModal(){
 
                 <div id="averageTime"></div>
                 <div id="closeCustomizeContainer">
-                    <button id="closeCustomize">Close</button>
+                    <button class="button" id="closeCustomize">Close</button>
                 </div>
             </div>
         `
@@ -97,6 +98,7 @@ function prepareOptions(eggOptionList){
         
         eggOptions.forEach(eggOption => {
             eggOption.classList.add("option");
+            eggOption.classList.add("button");
 
             eggOption.addEventListener("click", event => {
                 eggOptions.forEach(eggOption2 => eggOption2.classList.remove("selected"))
@@ -181,9 +183,9 @@ function display_info () {
     overlayDiv.id = "overlay";
     overlayDiv.innerHTML = `
             <div id="info_background">
-                <div id="close_button"></div>
+                <div class="button" id="close_button"></div>
                 <p id="info_text"></p>
-                <div id="next_message_button"></div>
+                <div class="button" id="next_message_button"></div>
             </div>
     `
     document.querySelector("#wrapper").appendChild(overlayDiv);
@@ -191,10 +193,10 @@ function display_info () {
     let nr_of_messages_displayed = 0;
 
     let messages = [
-        `Click on "customize" button at the buttom of the screen to manage your options.`,
+        `Click on the "customize" button at the bottom of the screen to manage your options.`,
         `Before putting your eggs in the pot, make sure that the water is boiling.`,
-        `Poke a hole in the bottom of the egg/eggs to minimize the risk of the egg cracking.`,
-        `Gently lower the egg/eggs into the pot, then start the timer!`
+        `Poke a hole in the bottom of the eggs to minimize the risk of the egg cracking.`,
+        `Gently lower the eggs into the pot, then start the timer!`
     ];
 
     let info_text = document.getElementById("info_text");
@@ -255,42 +257,61 @@ function start_timer() {
     timer_button.addEventListener("click", stop_timer);
 
     function stop_timer(){
-        clearInterval(count_down);
-        timer_text.textContent = "START";
-        time.innerText = "00:00";
-        loading_bar.style.height = "0%"
+        
+        const overlayDiv = document.createElement("div");
+        overlayDiv.id = "overlay";
+        overlayDiv.innerHTML = `
+                <div id="stop_background">
+                    <p id="info_text">Are you sure you want to reset the timer?</p>
+                    <div id="choice_container">
+                        <div class="button choice_button" id="yes">Yes</div>
+                        <div class="button choice_button" id="no">No</div>
+                    </div>
+                </div>
+        `
+        document.querySelector("#wrapper").appendChild(overlayDiv);
+        
+        document.getElementById("no").addEventListener("click", () => {
+            overlayDiv.remove();
+        })
+        
+        document.getElementById("yes").addEventListener("click", () => {
+            overlayDiv.remove();
 
-        timerButtonIcon.classList.remove("stopIcon");
-        timerButtonIcon.classList.add("startIcon");
+            let timeoutID = time.dataset.timeoutID;
+            clearTimeout(timeoutID);
 
-        customizeEggButton.style.opacity = 1;
-        customizeEggButton.addEventListener("click", renderCustomizeModal);
+            timer_text.textContent = "START";
+            time.innerText = "00:00";
+            loading_bar.style.height = "0%"
 
-        toggleStartTimerButton();
-        timer_button.removeEventListener("click", stop_timer);
-        timer_button.addEventListener("click", start_timer);
+            timerButtonIcon.classList.remove("stopIcon");
+            timerButtonIcon.classList.add("startIcon");
+
+            customizeEggButton.style.opacity = 1;
+            customizeEggButton.addEventListener("click", renderCustomizeModal);
+
+            toggleStartTimerButton();
+            timer_button.removeEventListener("click", stop_timer);
+            timer_button.addEventListener("click", start_timer);
+        })
     }
 
     let start_time = time.innerText.split(":");
     let minutes = parseInt(start_time[0]);
-    let seconds = parseInt(start_time[1] - 1);
+    let seconds = parseInt(start_time[1]);
 
     let start_time_seconds = minutes * 60 + seconds;
 
-    time.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    time_handler();
 
-    let count_down = setInterval( () => {
-        if(minutes === 0 && seconds === 0) {
-            clearInterval(count_down);
+    function time_handler(){
+        if(seconds === 0) {
+            minutes--;
+            seconds = 59;
         }
         else {
-            if(seconds === 0) {
-                minutes--;
-                seconds = 59;
-            }
-            else {
-                seconds--;
-            }
+            seconds--;
         }
 
         let time_left_seconds = (minutes * 60) + seconds;
@@ -298,5 +319,28 @@ function start_timer() {
         loading_bar.style.height = `${percentage}%`;
 
         time.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }, 1000);
+
+        if(minutes === 0 && seconds === 0) {
+            let alarm = new Audio("media/alarm.wav");
+            alarm.play();
+            
+            timer_text.textContent = "START";
+            time.innerText = "00:00";
+
+            timerButtonIcon.classList.remove("stopIcon");
+            timerButtonIcon.classList.add("startIcon");
+
+            customizeEggButton.style.opacity = 1;
+            customizeEggButton.addEventListener("click", renderCustomizeModal);
+
+            toggleStartTimerButton();
+            timer_button.removeEventListener("click", stop_timer);
+            timer_button.addEventListener("click", start_timer);
+
+            return;
+        }
+
+        let timeoutID = setTimeout(time_handler, 1000);
+        time.dataset.timeoutID = timeoutID;
+    }
 }
