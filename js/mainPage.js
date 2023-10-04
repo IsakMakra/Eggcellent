@@ -7,6 +7,12 @@ function initiateMainPage(){
     document.getElementById("info_button").addEventListener("click", display_info);
 
     toggleStartTimerButton();
+
+    if(!window.localStorage.getItem("infoDisplayed")){
+        display_info();
+        window.localStorage.setItem("infoDisplayed", true);
+    }
+
 }
 
 function renderCustomizeModal(){
