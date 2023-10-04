@@ -132,33 +132,27 @@ function calcAndPrintTime(){
 
     const eggOptions = {
         temperature: {
-            cold: 15,
-            warm: 30
+            cold: 45,
+            warm: 0
         },
         size: {
-            small: 40,
-            medium: 80,
-            large: 120,
-            extralarge: 160
-        },
-        boiltype: {
-            soft: 15,
-            medium: 30,
-            hard: 45
+            small: {soft: 210, medium: 360, hard: 570},
+            medium: {soft: 270, medium: 420, hard: 630},
+            large: {soft: 330, medium: 480, hard: 690},
+            extralarge: {soft: 390, medium: 570, hard: 810}
         }
     }
 
     const eggAmount = parseInt(document.querySelector("#eggCounter").textContent);
-    const eggTemperature = document.querySelector("#coldOrWarm .selected").id;
     const eggSize = document.querySelector("#eggSize .selected").id;
+    const eggTemperature = document.querySelector("#coldOrWarm .selected").id;
     const eggBoilType = document.querySelector("#boilType .selected").id;
 
-    const eggAmountTime = 20 * eggAmount;
+    const eggAmountTime = 18 * eggAmount;
     const eggTempTime = eggOptions.temperature[eggTemperature];
-    const eggSizeTime = eggOptions.size[eggSize];
-    const eggBoilTypeTime = eggOptions.boiltype[eggBoilType];
+    const eggSizeAndBoilTime = eggOptions.size[eggSize][eggBoilType];
 
-    const totalSeconds = eggAmountTime + eggTempTime + eggSizeTime + eggBoilTypeTime;
+    const totalSeconds = eggAmountTime + eggTempTime + eggSizeAndBoilTime;
 
     console.log(totalSeconds);
 
