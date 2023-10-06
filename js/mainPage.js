@@ -198,7 +198,9 @@ function display_info () {
                 </div>
             </div>
     `
-    document.querySelector("#wrapper").appendChild(overlayDiv);
+    document.querySelector("body").appendChild(overlayDiv);
+    document.querySelector("#wrapper").style.filter = "blur(3px)";
+
 
     let nr_of_messages_displayed = 0;
 
@@ -217,6 +219,7 @@ function display_info () {
 
     document.getElementById("close_button").addEventListener("click", () => {
         document.getElementById("overlay").remove();
+        document.querySelector("#wrapper").style.filter = "blur(0px)";
         document.querySelector("#info_button").addEventListener("click", display_info);
     })
 
