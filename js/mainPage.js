@@ -20,6 +20,8 @@ function renderCustomizeModal(){
     document.getElementById("loadingBar").style.height = "0%"
     const customizeModal = document.createElement("div");
 
+    customizeModal.style.backdropFilter = "blur(3px)";
+
     if(window.localStorage.getItem("customizeEggState")){
         customizeModal.innerHTML = window.localStorage.getItem("customizeEggState");
     }else{
@@ -199,7 +201,7 @@ function display_info () {
             </div>
     `
     document.querySelector("body").appendChild(overlayDiv);
-    document.querySelector("#wrapper").style.filter = "blur(3px)";
+    document.querySelector("#overlay").style.backdropFilter = "blur(3px)";
 
 
     let nr_of_messages_displayed = 0;
@@ -219,7 +221,6 @@ function display_info () {
 
     document.getElementById("close_button").addEventListener("click", () => {
         document.getElementById("overlay").remove();
-        document.querySelector("#wrapper").style.filter = "blur(0px)";
         document.querySelector("#info_button").addEventListener("click", display_info);
     })
 
